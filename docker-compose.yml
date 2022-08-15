@@ -35,8 +35,8 @@ services:
       - webgateway
 
   traefik:
-    image: traefik:v1.7    
-    container_name: traefik 
+    image: traefik:v1.7
+    container_name: traefik
     restart: unless-stopped
     command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
     ports:
