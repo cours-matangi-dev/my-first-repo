@@ -21,8 +21,29 @@ jobs:
           sudo apt-get install yamllint
           make yamllint
 
+      - name: Lint with pylint
+        run: |
+          make lint
+
+      - name: test with pytest
+        run: |
+          make testapp
+
+      - name: format with yapf
+        run: |
+          make format
+
+      - name: make a test coverage badge with genbadge
+        run: |
+          make coverage_badge
+
+      - name: clean pytest report
+        run: |
+          make cleaning
+
       - name: Display secret
         run: |
           echo "$HOST_IP"
         env:
           HOST_IP: ${{ secrets.HOST_IP }}
+
