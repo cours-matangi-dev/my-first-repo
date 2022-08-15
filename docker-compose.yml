@@ -1,0 +1,58 @@
+---
+version: '3.7'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    restart: always
+    expose:
+      - "80"
+    labels:
+      - "traefik.docker.network=webgateway"
+      - "traefik.backend=nginx"
+      - "traefik.frontend.rule=Host:sondage.localhost"
+      - "traefik.port=80"
+    depends_on:
+      - web
+      - traefik
+    networks:
+      - webgateway
+
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - web_volume:/app/media
+    ports:
+      - 5000:5000
+    depends_on:
+      - traefik
+    networks:
+      - webgateway
+
+  traefik:
+    image: traefik:v1.7    
+    container_name: traefik 
+    restart: unless-stopped
+    command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - webgateway
+volumes:
+  web_volume:
+    name: web_volume
+
+networks:
+  webgateway:
+    driver: bridge
+    name: webgateway
