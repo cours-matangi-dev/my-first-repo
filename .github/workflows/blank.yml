@@ -23,4 +23,6 @@ jobs:
 
       - name: Display secret
         run: |
-          echo "${{secret.HOST_IP}}"
+          echo "$HOST_IP"
+        env:
+          HOST_IP: ${{ secrets.HOST_IP }}
