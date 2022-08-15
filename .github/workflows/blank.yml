@@ -12,6 +12,10 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: scan vulnerabilities # Runs commands using the runners shell
+        run: |
+          sudo apt-get install trivy && make test-vulnerability
+
       - name: Install dependencies # Runs commands using the runners shell
         run: |
           make install
@@ -46,4 +50,3 @@ jobs:
           echo "$HOST_IP"
         env:
           HOST_IP: ${{ secrets.HOST_IP }}
-
