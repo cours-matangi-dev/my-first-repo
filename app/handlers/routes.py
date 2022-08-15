@@ -9,7 +9,6 @@ import io
 
 matplotlib.use('Agg')  #to avoid gui
 
-
 n_yes = 0
 n_no = 0
 n_rep = 0

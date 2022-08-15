@@ -4,3 +4,11 @@ matplotlib
 flask
 gunicorn
 gevent
+pylint
+pytest
+pytest-cov
+pytest-testinfra
+yapf
+genbadge
+defusedxml
+flask

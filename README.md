@@ -22,4 +22,3 @@ http://localhost/blabla/results.png pour les graphiques de résultats
 Vous pouvez en principe remplacer localhost par sondage.localhost dans les adresses précédentes pour vérifier que traefik fonctionne. 
 Traefik et nginx proposent tous les deux des fonctions de reverse proxy et on trouve le plus souvent de la literature sur l'utilisation de l'un ou l'autre mais rarement des deux en même temps.
 Cette illustration est purement pédagogique
-1

@@ -1,0 +1,26 @@
+name: flask-deployment
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: set up python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies # Runs commands using the runners shell
+        run: |
+          make install
+
+      - name: yamllint with yamllint
+        run: |
+          sudo apt-get install yamllint
+          make yamllint
+
+      - name: Display secret
+        run: |
+          echo "${{secret.HOST_IP}}"
