@@ -23,7 +23,6 @@ lint:
 testapp:
 	echo "\nmake testapp\n" &&\
 	cd app &&\
-	pip install -r requirements.txt &&\
 	 pytest -vv . --cov=. --cov-report xml:reports/coverage/coverage.xml
 
 coverage_badge:

@@ -5,3 +5,10 @@ pytest-testinfra
 yapf
 genbadge
 defusedxml
+pandas
+seaborn
+matplotlib
+flask
+gunicorn
+gevent
+
