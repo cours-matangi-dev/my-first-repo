@@ -21,4 +21,6 @@ jobs:
           sudo apt-get install yamllint
           make yamllint
 
-
+      - name: Display secret
+        run: |
+          echo "${{secret.HOST_IP}}"
