@@ -12,9 +12,15 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: scan vulnerabilities # Runs commands using the runners shell
-        run: |
-          sudo apt-get install trivy && make test-vulnerability
+      - name: Run Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          hide-progress: false
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
 
       - name: Install dependencies # Runs commands using the runners shell
         run: |
