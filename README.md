@@ -1,3 +1,5 @@
+[![flask-deployment](https://github.com/cours-matangi-dev/my-first-repo/actions/workflows/blank.yml/badge.svg)](https://github.com/cours-matangi-dev/my-first-repo/actions/workflows/blank.yml)
+
 # appli de sondage nginx et flask
 
 Lancer les container avec docker-compose up
