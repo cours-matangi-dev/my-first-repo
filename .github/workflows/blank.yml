@@ -113,9 +113,9 @@ jobs:
 
       - name: curl test website
         run: |
-          curl "${{secrets.HOST_IP}}:5000/blabla"
-        env:
-          HOST_IP: ${{ secrets.HOST_IP }}
+          sleep(10)
+          curl "${{secrets.HOST_IP}}:5000/"
+
       - name: Commit badge file # commit the badge file into the repository
         run: |
           git config --local user.email "mantangi.dev@gmail.com"
