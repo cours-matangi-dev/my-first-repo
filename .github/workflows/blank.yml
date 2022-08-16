@@ -112,7 +112,7 @@ jobs:
 
       - name: curl test website
         run: |
-          curl ${{HOST_IP}}:5000/blabla
+          curl "${{HOST_IP}}:5000/blabla"
         env:
           HOST_IP: ${{ secrets.HOST_IP }}
       - name: Commit badge file # commit the badge file into the repository
