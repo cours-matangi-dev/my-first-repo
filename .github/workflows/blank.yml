@@ -79,6 +79,7 @@ jobs:
           key: ${{ secrets.PVT_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            set -ex
             echo 'extracting tar file'
             sudo rm -rf /appli/*
             sudo mkdir -p /appli
@@ -101,13 +102,13 @@ jobs:
             pylint app --verbose --disable=R,C -sy
             echo 'lint done'
             echo 'running test'
-            make test
+            make testapp
             echo 'test done'
             #echo 'running vulnerability check'
             #trivy fs --severity HIGH,CRITICAL --security-checks vuln /
             #echo 'vuln check done'
             echo 'running docker build & run'
-            docker-compose build && docker-compose up -d
+            sudo docker-compose build && sudo docker-compose up -d
             echo 'docker built and running'
 
       - name: curl test website
