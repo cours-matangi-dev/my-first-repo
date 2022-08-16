@@ -1,4 +1,4 @@
-FROM nginx:1.21.6-alpine
+FROM nginxinc/nginx-unprivileged:1.23
 RUN rm /etc/nginx/conf.d/default.conf
 COPY ./nginx/nginx.conf /etc/nginx/conf.d
 USER nginx
