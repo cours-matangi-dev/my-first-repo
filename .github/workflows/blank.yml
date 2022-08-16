@@ -12,16 +12,6 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Run Trivy vulnerability scanner in IaC mode
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'config'
-          hide-progress: false
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
-
       - name: Install dependencies # Runs commands using the runners shell
         run: |
           make install
@@ -31,100 +21,6 @@ jobs:
           sudo apt-get install yamllint
           make yamllint
 
-      - name: Lint with pylint
-        run: |
-          make lint
-
-      - name: test with pytest
-        run: |
-          make testapp
-
-      - name: format with yapf
-        run: |
-          make format
-
-      - name: make a test coverage badge with genbadge
-        run: |
-          make coverage_badge
-
-      - name: clean pytest report
-        run: |
-          make cleaning
-
       - name: Display secret
         run: |
-          echo "$HOST_IP"
-        env:
-          HOST_IP: ${{ secrets.HOST_IP }}
-
-      - name: make tar file of project
-        run: tar -cvf project.tar .
-
-      - name: Copy project.tar to remote host
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{secrets.HOST_IP}}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.PVT_KEY }}
-          port: ${{ secrets.PORT }}
-          source: "project.tar"
-          target: "/tmp"
-          overwrite: true
-
-      - name: Deploy using ssh
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{secrets.HOST_IP}}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.PVT_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            set -ex
-            echo 'extracting tar file'
-            sudo rm -rf /appli/*
-            sudo mkdir -p /appli
-            sudo tar -xf /tmp/project.tar -C /appli
-            echo 'tar file extracted'
-            echo 'configuring for python package fine deployment'
-            sudo chown -R admin:admin /appli
-            sudo chmod -R u=rwx /appli
-            export PATH="/home/admin/.local/bin/:$PATH"
-            echo 'configuring done'
-            echo 'going into app folder'
-            cd /appli
-            echo 'running install'
-            make install
-            echo 'install done'
-            echo 'running format'
-            yapf -ir -vv --style pep8 .
-            echo 'format done'
-            echo 'running lint'
-            pylint app --verbose --disable=R,C -sy
-            echo 'lint done'
-            echo 'running test'
-            make testapp
-            echo 'test done'
-            #echo 'running vulnerability check'
-            #trivy fs --severity HIGH,CRITICAL --security-checks vuln /
-            #echo 'vuln check done'
-            echo 'running docker build & run'
-            sudo docker-compose build && sudo docker-compose up -d
-            echo 'docker built and running'
-
-      - name: curl test website
-        run: |
-          sleep(10)
-          curl "${{secrets.HOST_IP}}:5000/"
-
-      - name: Commit badge file # commit the badge file into the repository
-        run: |
-          git config --local user.email "mantangi.dev@gmail.com"
-          git config --local user.name "cours-matangi-dev"
-          git add app/coverage-badge.svg
-          git commit --allow-empty -m "Updating the test coverage badge"
-
-      - name: Push changes # push the output file to your repo
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
+          echo "${{ secrets.HOST_IP }}"
