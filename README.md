@@ -1,4 +1,4 @@
-[![flask-deployment](https://github.com/cours-matangi-dev/my-first-repo/actions/workflows/blank.yml/badge.svg)](https://github.com/cours-matangi-dev/my-first-repo/actions/workflows/blank.yml)
+[![flask-deployment](https://github.com/cours-matangi-dev/my-first-repo/actions/workflows/blank.yml/badge.svg)](https://github.com/cours-matangi-dev/my-first-repo/actions/workflows/blank.yml)  ![test-coverage badge](./coverage-badge.svg)
 
 # appli de sondage nginx et flask
 
