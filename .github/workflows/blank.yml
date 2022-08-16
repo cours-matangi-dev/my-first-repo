@@ -88,7 +88,7 @@ jobs:
             echo 'configuring for python package fine deployment'
             sudo chown -R admin:admin /appli
             sudo chmod -R u=rwx /appli
-            #export PATH="/home/admin/.local/lib/python3.9/site-packages:$PATH"
+            export PATH="/home/admin/.local/lib/python3.9/site-packages:$PATH"
             echo 'configuring done'
             echo 'going into app folder'
             cd /appli
