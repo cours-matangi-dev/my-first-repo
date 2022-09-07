@@ -1,0 +1,39 @@
+---
+version: '3.7'
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    volumes:
+      - staticfiles:/static
+    networks:
+      - webgateway
+
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - staticfiles:/app/static
+    ports:
+      - 5000:5000
+    networks:
+      - webgateway
+
+volumes:
+  staticfiles:
+    name: staticfiles
+
+networks:
+  webgateway:
+    driver: bridge
+    name: webgateway

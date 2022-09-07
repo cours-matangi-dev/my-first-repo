@@ -3,15 +3,14 @@
 """
 this is app.py for flask-tutorial (sondage example)
 """
-from flask import Flask
-#pylint:disable=import-error
+from flask import Flask, request
+# pylint: disable=import-error
 from handlers.routes import configure_routes
+from flask.logging import create_logger
 
 
 # create the Flask app
-class ReverseProxied(object
-                     ):  #for serving the website at /blabla or other path
-
+class ReverseProxied(object): #for serving the website at /blabla or other path
     def __init__(self, app, script_name=None, scheme=None, server=None):
         self.app = app
         self.script_name = script_name
@@ -32,14 +31,14 @@ class ReverseProxied(object
         if server:
             environ['HTTP_HOST'] = server
         return self.app(environ, start_response)
+        
+app = Flask(__name__)
+app.config['SECRET_KEY'] = '36b788e06d0c84d524eb881879ac7e2f66352b6480717bb9'
+app.wsgi_app = ReverseProxied(app.wsgi_app)
+configure_routes(app)
 
 
-appli = Flask(__name__)
-appli.config['SECRET_KEY'] = '36b788e06d0c84d524eb881879ac7e2f66352b6480717bb9'
-appli.wsgi_app = ReverseProxied(appli.wsgi_app)
-configure_routes(appli)
 
 if __name__ == '__main__':
     # run app in debug mode on port 5000
-    #pylint:disable=redefined-outer-name
-    appli.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)

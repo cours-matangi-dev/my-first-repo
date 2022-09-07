@@ -2,8 +2,8 @@
 
 bind = "0.0.0.0:5000"
 workers = 1
-wsgi_app = 'app:appli'
-worker_class = 'gevent'
+wsgi_app = 'app:app'
+worker_class='gevent'
 accesslog = '-'
 errorlog = '-'
 proc_name = 'app'
